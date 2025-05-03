@@ -8,6 +8,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import {useAuthStore} from '../../store/authStore';
 import { API_CONFIG_URL } from '../../constants/api';
+
 // import * as ImageManipulator from 'expo-image-manipulator';
 
 
@@ -49,6 +50,7 @@ export default function Create() {
           setImageBase64(result.assets[0].base64);
         }
         else{
+          console.log("else calling")
           //otherwise convert to base64
           const base64 = await FileSystem.readAsStringAsync(result.assets[0].uri,{
             encoding:FileSystem.EncodingType.Base64,
@@ -63,61 +65,8 @@ export default function Create() {
     }
   };
 
-  // const handleSubmit = async()=>{
-  //   console.log("check title caption imageBase64 , raing",title,caption,imageBase64,rating)
-  //   if(!title || !caption ||!imageBase64 || !rating){
-  //     Alert.alert("Error","Please fill in all fields")
-  //     return;
-       
-  //   }
-
-  //   try {
-  //     setLoading(true);
-  //     // get  file extension from URI or default to jpeg
-  //     const uriParts = image.split(",");
-  //     const fileType = uriParts[uriParts.length-1]
-  //     const imageType = fileType ? `image/${fileType.toLowerCase()}`:"image/jpeg";
-
-  //     const ImageDataUrl =`data:${imageType};base64,${imageBase64}`;
-  //     console.log("check ImageDataUrl ?",ImageDataUrl)
-  //     const response = await fetch(`${API_CONFIG_URL}/books`,{
-  //       method:"POST",
-  //       headers:{
-  //         Authorization:`Bearer ${token}`,
-  //         "Content-Type":'application/json'
-  //       },
-
-  //       body:JSON.stringify({
-  //         title,
-  //         caption,
-  //         rating,
-  //         image:rating.toString(),
-  //         image:ImageDataUrl
-  //       })
-  //     })
-
-  //     const data = await response.json();
-  //     if(!response.ok) throw new Error(data.message || "Something went wrong");
-  //     Alert.alert("Success","Your book recomendation has been posted")
-  //     setTitle("");
-  //     setCaption("");
-  //     setRating(3);
-  //     setImage(null);
-  //     setImageBase64(null);
-  //     router.push("/")
-  //   } catch (error) {
-  //     console.error("Error creating post :",error)
-  //     Alert.alert("Error",error.message || "Something went wrong");
-  //   } finally{
-  //     setLoading(false);
-
-  //   }
-  // };
-
-
   const handleSubmit = async () => {
     console.log("check title, caption, rating and image", title, caption, rating, image);
-  
     if (!title || !caption || !imageBase64 || !rating) {
       Alert.alert("Error", "Please fill in all fields");
       return;
@@ -134,7 +83,7 @@ export default function Create() {
   
       // Now build the correct Data URL
       const ImageDataUrl = `data:${mimeType};base64,${imageBase64}`;
-      console.log("check ImageDataUrl:", ImageDataUrl);
+      // console.log("check ImageDataUrl:", ImageDataUrl);
   
       const response = await fetch(`${API_CONFIG_URL}/books`, {
         method: "POST",
@@ -171,6 +120,8 @@ export default function Create() {
     }
   };
   
+
+ 
 
   const renderRatingPicker = () => {
     const stars = [];

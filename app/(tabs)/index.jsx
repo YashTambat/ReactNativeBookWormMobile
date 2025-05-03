@@ -10,7 +10,7 @@ import { formatPublishDate } from '../../lib/utils'
 import Loader from '../../components/Loader'
 
 
-const sleep = (ms) => new Promise((resolve)=>setTimeout(resolve,ms));
+export const sleep = (ms) => new Promise((resolve)=>setTimeout(resolve,ms));
 export default function Home() {
 
   const {token} = useAuthStore()

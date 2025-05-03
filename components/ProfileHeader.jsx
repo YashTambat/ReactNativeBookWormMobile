@@ -7,7 +7,7 @@ import { formatMemberSince } from '../lib/utils';
 
 export default function ProfileHeader() {
   const { user } = useAuthStore();
-  // console.log("check usercreated?: ",user.createdAt)
+  console.log("check usercreated?: ",user)
   if(!user) return null;
 
   return (
@@ -16,7 +16,7 @@ export default function ProfileHeader() {
      <View style={styles.profileInfo}>
       <Text style={styles.username}>{user.username}</Text>
       <Text style={styles.email}>{user.email}</Text>
-      <Text style={styles.memberSince}>Joined{formatMemberSince(user.createdAt)}</Text>
+      <Text style={styles.memberSince}>Joined {formatMemberSince(user.createdAt)}</Text>
 
      </View>
     </View>
